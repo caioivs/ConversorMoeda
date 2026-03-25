@@ -5,8 +5,12 @@ app = Flask(__name__, template_folder="templates")
 
 def obterConvercao():
     url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    }
     try:
-        resposta = requests.get(url, timeout=10)
+        resposta = requests.get(url, headers=headers, timeout=10)
         dados = resposta.json()
 
         return {
