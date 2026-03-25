@@ -5,18 +5,19 @@ app = Flask(__name__, template_folder="templates")
 
 def obterConvercao():
     url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
-    resposta = requests.get(url, timeout=10)
-    dados = resposta.json()
+    try:
+        resposta = requests.get(url, timeout=10)
+        dados = resposta.json()
 
-    cotacoes = {
-        "dolar": float(dados["USDBRL"]["bid"]),
-        "euro": float(dados["EURBRL"]["bid"]),
-        "peso": float(dados["ARSBRL"]["bid"]),
-        "libra": float(dados["GBPBRL"]["bid"])
-    }
-    print(dados, cotacoes)
-    
-    return cotacoes
+        return {
+            "dolar": float(dados.get("USDBRL", {}).get("bid", 0)),
+            "euro": float(dados.get("EURBRL", {}).get("bid", 0)),
+            "peso": float(dados.get("ARSBRL", {}).get("bid", 0)),
+            "libra": float(dados.get("GBPBRL", {}).get("bid", 0))
+        }
+    except Exception as e:
+        print(f"Erro ao conectar: {e}")
+        return None
 
 def converter(real, cotacao):
     return real / cotacao
