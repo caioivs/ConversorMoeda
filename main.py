@@ -27,7 +27,7 @@ def obterConvercao():
 def converter(real, cotacao):
     if(cotacao <= 0):
         return real
-    else
+    else:
         return real / cotacao
 
 @app.route("/", methods=["GET", "POST"])
