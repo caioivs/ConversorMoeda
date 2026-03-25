@@ -14,6 +14,8 @@ def obterConvercao():
         "peso": float(dados["ARSBRL"]["bid"]),
         "libra": float(dados["GBPBRL"]["bid"])
     }
+    print(dados, cotacoes)
+    
     return cotacoes
 
 def converter(real, cotacao):
