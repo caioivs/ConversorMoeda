@@ -1,7 +1,7 @@
 import requests
 from flask import Flask, render_template, request
 
-app = Flask(__name__, template_folder="../templates")
+app = Flask(__name__, template_folder="templates")
 
 def obterConvercao():
     url = "https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
