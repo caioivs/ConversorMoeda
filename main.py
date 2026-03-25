@@ -12,7 +12,8 @@ def obterConvercao():
     try:
         resposta = requests.get(url, headers=headers, timeout=10)
         dados = resposta.json()
-
+        print(dados)
+        
         return {
             "dolar": float(dados.get("USDBRL", {}).get("bid", 0)),
             "euro": float(dados.get("EURBRL", {}).get("bid", 0)),
