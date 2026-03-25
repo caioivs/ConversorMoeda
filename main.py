@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 app = Flask(__name__, template_folder="templates")
 
 def obterConvercao():
-    url = "https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
+    url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
     resposta = requests.get(url, timeout=10)
     dados = resposta.json()
 
