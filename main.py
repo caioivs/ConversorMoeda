@@ -10,14 +10,14 @@ def obterConvercao():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     }
     try:
-        resposta = requests.get(url, headers=headers, timeout=10)
+        resposta = requests.get(url, headers=headers, timeout=15)
         dados = resposta.json()
 
         return {
-            "dolar": float(dados.get("USDBRL", {}).get("bid", 0)),
-            "euro": float(dados.get("EURBRL", {}).get("bid", 0)),
-            "peso": float(dados.get("ARSBRL", {}).get("bid", 0)),
-            "libra": float(dados.get("GBPBRL", {}).get("bid", 0))
+            "dolar": float(dados["USDBRL"]["bid"]),
+            "euro": float(dados["EURBRL"]["bid"]),
+            "peso": float(dados["ARSBRL"]["bid"]),
+            "libra": float(dados["GBPBRL"]["bid"])
         }
     except Exception as e:
         print(f"Erro ao conectar: {e}")
@@ -31,8 +31,8 @@ def index():
         resultado = None
         moeda = None
         if request.method == "POST":
-                valor_real = float(request.form["valor_real"])
-                moeda = request.form["moeda"]
+                valor_real = float(request.form.get["valor_real"])
+                moeda = request.form.get["moeda"]
                 cotacoes = obterConvercao()
                 resultado = converter(valor_real, cotacoes[moeda])
             
