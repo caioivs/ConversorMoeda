@@ -27,12 +27,13 @@ def converter(real, cotacao):
     return real / cotacao
 
 @app.route("/", methods=["GET", "POST"])
+
 def index():           
         resultado = None
         moeda = None
         if request.method == "POST":
-                valor_real = float(request.form.get["valor_real"])
-                moeda = request.form.get["moeda"]
+                valor_real = float(request.form.get("valor_real"))
+                moeda = request.form.get("moeda")
                 cotacoes = obterConvercao()
                 resultado = converter(valor_real, cotacoes[moeda])
             
