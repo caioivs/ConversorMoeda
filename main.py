@@ -38,7 +38,6 @@ def index():
             
         return render_template("index.html", resultado=resultado, moeda=moeda) 
              
+        
 if __name__ == "__main__":
     app.run(debug=True)
-    
-     
