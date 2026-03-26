@@ -1,10 +1,16 @@
 import requests
 import os
+import time 
 from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder="templates")
-
+cotacao_cache = {"dados": None, "timestamp": 0}
 def obterConvercao():
+    agora = time.time()
+    # Reutiliza o cache se tiver menos de 60 segundos
+    if cotacao_cache["dados"] and (agora - cotacao_cache["timestamp"]) < 60:
+        return cotacao_cache["dados"]
+    
     url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
 
     headers = {
@@ -15,13 +21,17 @@ def obterConvercao():
         resposta.raise_for_status()
         dados = resposta.json()
 
-        return {
+        resultado = {
             "dolar": float(dados["USDBRL"]["bid"]),
             "euro": float(dados["EURBRL"]["bid"]),
             "peso": float(dados["ARSBRL"]["bid"]),
             "libra": float(dados["GBPBRL"]["bid"])
         }
-    
+        cotacao_cache["dados"] = resultado
+        cotacao_cache["timestamp"] = agora
+        return resultado
+
+
     except Exception as e:
 
         print(f"Erro ao conectar: {e}")
