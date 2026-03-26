@@ -7,29 +7,26 @@ app = Flask(__name__, template_folder="templates")
 cotacao_cache = {"dados": None, "timestamp": 0}
 def obterConvercao():
     agora = time.time()
-    # Reutiliza o cache se tiver menos de 60 segundos
     if cotacao_cache["dados"] and (agora - cotacao_cache["timestamp"]) < 60:
         return cotacao_cache["dados"]
     
-    url = "https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,ARS-BRL"
+    url = "https://open.er-api.com/v6/latest/USD"
 
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-    }
     try:
-        resposta = requests.get(url, headers=headers, timeout=15)
+        resposta = requests.get(url, timeout=15)
         resposta.raise_for_status()
         dados = resposta.json()
+        usd_brl = float(dados["rates"]["BRL"])
 
-        resultado = {
-            "dolar": float(dados["USDBRL"]["bid"]),
-            "euro": float(dados["EURBRL"]["bid"]),
-            "peso": float(dados["ARSBRL"]["bid"]),
-            "libra": float(dados["GBPBRL"]["bid"])
+        cotacao = {
+            "dolar": usd_brl,
+            "euro":  usd_brl / float(dados["rates"]["EUR"]),
+            "peso":  usd_brl / float(dados["rates"]["ARS"]),
+            "libra": usd_brl / float(dados["rates"]["GBP"])
         }
-        cotacao_cache["dados"] = resultado
+        cotacao_cache["dados"] = cotacao
         cotacao_cache["timestamp"] = agora
-        return resultado
+        return cotacao
 
 
     except Exception as e:
