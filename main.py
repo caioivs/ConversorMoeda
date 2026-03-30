@@ -19,6 +19,7 @@ def obterConvercao():
         usd_brl = float(dados["rates"]["BRL"])
 
         cotacao = {
+            "real": 1.0,
             "dolar": usd_brl,
             "euro":  usd_brl / float(dados["rates"]["EUR"]),
             "peso":  usd_brl / float(dados["rates"]["ARS"]),
@@ -33,26 +34,30 @@ def obterConvercao():
 
         print(f"Erro ao conectar: {e}")
         return None
+    
+# Real para moeda estrangeira
+def converter(valor, cotacao_origem, cotacao_destino):
+    return valor * (cotacao_origem / cotacao_destino)
 
-def converter(real, cotacao):
-    return real / cotacao
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():           
     resultado = None
-    moeda = None
     erro = None
+    cotacao_origem, cotacao_destino = None
     if request.method == "POST":
-            valor_real = float(request.form.get("valor_real"))
-            moeda = request.form.get("moeda")
+            valor = float(request.form.get("valor"))
+            moeda_origem = request.form.get("moeda_origem")
+            moeda_destino = request.form.get("moeda_destino")
             cotacoes = obterConvercao()
 
             if cotacoes is None:
                 resultado = "Erro ao obter cotações. Tente novamente."
             else:
-                resultado = converter(valor_real, cotacoes[moeda])
+                resultado = converter(valor, cotacoes[moeda_origem], cotacoes[moeda_destino])
             
-    return render_template("index.html", resultado=resultado, moeda=moeda, erro=erro) 
+    return render_template("index.html", resultado=resultado, erro=erro) 
              
         
 if __name__ == "__main__":
