@@ -39,20 +39,20 @@ def converter(real, cotacao):
 
 @app.route("/", methods=["GET", "POST"])
 def index():           
-        resultado = None
-        moeda = None
-        erro = None
-        if request.method == "POST":
-                valor_real = float(request.form.get("valor_real"))
-                moeda = request.form.get("moeda")
-                cotacoes = obterConvercao()
+    resultado = None
+    moeda = None
+    erro = None
+    if request.method == "POST":
+            valor_real = float(request.form.get("valor_real"))
+            moeda = request.form.get("moeda")
+            cotacoes = obterConvercao()
 
-                if cotacoes is None:
-                    resultado = "Erro ao obter cotações. Tente novamente."
-                else:
-                    resultado = converter(valor_real, cotacoes[moeda])
+            if cotacoes is None:
+                resultado = "Erro ao obter cotações. Tente novamente."
+            else:
+                resultado = converter(valor_real, cotacoes[moeda])
             
-        return render_template("index.html", resultado=resultado, moeda=moeda, erro=erro) 
+    return render_template("index.html", resultado=resultado, moeda=moeda, erro=erro) 
              
         
 if __name__ == "__main__":

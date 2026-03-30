@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+header h1 {
+  color: #007BFF;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+main {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+main p {
+  margin-bottom: 30px;
+  color: #cccccc;
+  font-size: 1.1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #111111;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
+  border: 1px solid #007BFF;
+}
+
+input[type="number"] {
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 2px solid #007BFF;
+  border-radius: 8px;
+  background-color: #222222;
+  color: #ffffff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+select {
+  padding: 15px;
+  font-size: 1.2rem;
+  border: 2px solid #007BFF;
+  border-radius: 8px;
+  background-color: #222222;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus {
+  outline: none;
+  border-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  padding: 15px;
+  font-size: 1.2rem;
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+div[style*="margin-top: 20px"] {
+  margin-top: 30px !important;
+  padding: 20px;
+  background-color: #007BFF;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  border: 1px solid #0056b3;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  form {
+    padding: 20px;
+  }
+}
