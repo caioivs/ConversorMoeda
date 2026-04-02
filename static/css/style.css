@@ -40,12 +40,26 @@ main p {
 form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   background-color: #111111;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0, 123, 255, 0.1);
   border: 1px solid #007BFF;
+}
+
+label {
+  color: #007BFF;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+label[for="moeda_origem"],
+label[for="moeda_destino"] {
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 input[type="number"] {
@@ -56,6 +70,7 @@ input[type="number"] {
   background-color: #222222;
   color: #ffffff;
   transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
 }
 
 input[type="number"]:focus {

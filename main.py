@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder="templates")
 cotacao_cache = {"dados": None, "timestamp": 0}
+# Busca as cotações mais recentes e cache para evitar requisão 
 def obterConvercao():
     agora = time.time()
     if cotacao_cache["dados"] and (agora - cotacao_cache["timestamp"]) < 60:
@@ -13,6 +14,7 @@ def obterConvercao():
     url = "https://open.er-api.com/v6/latest/USD"
 
     try:
+
         resposta = requests.get(url, timeout=15)
         resposta.raise_for_status()
         dados = resposta.json()
@@ -40,12 +42,12 @@ def converter(valor, cotacao_origem, cotacao_destino):
     return valor * (cotacao_origem / cotacao_destino)
 
 
-
+#Renderiza o template com base nos dados digitados pelo usuario
 @app.route("/", methods=["GET", "POST"])
 def index():           
     resultado = None
     erro = None
-    cotacao_origem, cotacao_destino = None
+    moeda_destino = None
     if request.method == "POST":
             valor = float(request.form.get("valor"))
             moeda_origem = request.form.get("moeda_origem")
@@ -57,9 +59,9 @@ def index():
             else:
                 resultado = converter(valor, cotacoes[moeda_origem], cotacoes[moeda_destino])
             
-    return render_template("index.html", resultado=resultado, erro=erro) 
+    return render_template("index.html", resultado=resultado, erro=erro,  moeda_destino = moeda_destino) 
              
         
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=port, debug=True,)

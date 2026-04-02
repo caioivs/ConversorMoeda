@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>Converta a Moeda💱</h1>
+        <h1>Converta a Moeda</h1>
     </header>
     <main>
 
@@ -23,23 +23,25 @@
                 <option value="euro">Euro</option>
                 <option value="libra">Libra</option>
                 <option value="peso">Peso</option>
+                <option value="real">Real</option>
             </select>
-
-            <input type="number" step="0.1" name="valor" placeholder="Valor" required>
+            
+            
+           
             <label for="moeda_destino">Para:</label>
             <select name="moeda_destino" id="moeda_destino">
                 <option value="dolar">Dólar</option>
                 <option value="euro">Euro</option>
                 <option value="libra">Libra</option>
                 <option value="peso">Peso</option>
-            </select>
-
+                <option value="real">Real</option>
+            </select>                        
             <button type="submit">Converter</button>
         </form>
 
         {% if resultado %}
             <div style="margin-top: 20px; font-weight: bold;">
-                Resultado em {{ moeda.capitalize() }}: {{ "%.2f"|format(resultado) }}
+                Resultado em {{ moeda_destino.capitalize() }}: {{ "%.2f"|format(resultado) }}
             </div>
         {% endif %}
 
